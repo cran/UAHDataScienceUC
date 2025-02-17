@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Andriy Protsak" />
+
+<meta name="date" content="2025-02-14" />
+
+<title>UAHDataScienceUC: A Comprehensive Guide to Clustering Algorithms</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">UAHDataScienceUC: A Comprehensive Guide to
+Clustering Algorithms</h1>
+<h4 class="author">Andriy Protsak</h4>
+<h4 class="date">2025-02-14</h4>
+
+
+
+<p>The UAHDataScienceUC package provides a robust collection of
+clustering algorithms implemented in R. This package, developed at the
+Universidad de Alcalá de Henares, offers both traditional and advanced
+clustering methods, making it a valuable tool for data scientists and
+researchers. In this vignette, we’ll explore the various clustering
+algorithms available in the package and learn how to use them
+effectively.</p>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>You can install the package from CRAN using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;UAHDataScienceUC&quot;</span>)</span></code></pre></div>
+</div>
+<div id="available-algorithms" class="section level2">
+<h2>Available algorithms</h2>
+<p>The package implements several clustering algorithms, each with its
+own strengths and use cases:</p>
+<ul>
+<li>K-Means Clustering<br />
+</li>
+<li>Agglomerative Hierarchical Clustering<br />
+</li>
+<li>Divisive Hierarchical Clustering<br />
+</li>
+<li>DBSCAN (Density-Based Spatial Clustering)<br />
+</li>
+<li>Gaussian Mixture Models<br />
+</li>
+<li>Genetic K-Means<br />
+</li>
+<li>Correlation-Based Clustering</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(UAHDataScienceUC)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">data</span>(db5)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># Create sample data</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>data <span class="ot">&lt;-</span> db5[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, ]</span></code></pre></div>
+</div>
+<div id="k-means-clustering" class="section level2">
+<h2>K-Means Clustering</h2>
+<p>It partitions n observations into k clusters where each observation
+belongs to the cluster with the nearest mean.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Perform k-means clustering</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">kmeans_</span>(data, <span class="at">centers =</span> <span class="dv">3</span>, <span class="at">max_iterations =</span> <span class="dv">10</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Plot results</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">plot</span>(data, <span class="at">col =</span> result<span class="sc">$</span>cluster, <span class="at">pch =</span> <span class="dv">20</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="fu">points</span>(result<span class="sc">$</span>centers, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">8</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="agglomerative-hierarchical-clustering" class="section level2">
+<h2>Agglomerative Hierarchical Clustering</h2>
+<p>This algorithm builds a hierarchy of clusters from bottom-up,
+starting with individual observations and progressively merging them
+into clusters.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Perform hierarchical clustering</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">agglomerative_clustering</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  data,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">proximity =</span> <span class="st">&quot;single&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">distance_method =</span> <span class="st">&quot;euclidean&quot;</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="at">learn =</span> <span class="cn">TRUE</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## EXPLANATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The Agglomerative Hierarchical Clustering algorithm defines a clustering hierarc</code></pre>
+<pre><code>## hy for a dataset following a `n` step process, which repeats until a single clus</code></pre>
+<pre><code>## ter remains:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>##     1. Initially, each object is assigned to its own cluster. The matrix of dist</code></pre>
+<pre><code>##     ances between clusters is computed.</code></pre>
+<pre><code>##     2. The two clusters with closest proximity will be joined together and the p</code></pre>
+<pre><code>##     roximity matrix updated. This is done according to the specified proximity.</code></pre>
+<pre><code>##     This step is repeated until a single cluster remains.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The definitions of proximity considered by this function are:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>##     1. `single`. Defines the proximity between two clusters as the distance betw</code></pre>
+<pre><code>##     een the closest objects among the two clusters. It produces clusters where e</code></pre>
+<pre><code>##     ach object is closest to at least one other object in the same cluster. It i</code></pre>
+<pre><code>##     s known as SLINK, single-link or minimum-link.</code></pre>
+<pre><code>##     2. `complete`. Defines the proximity between two clusters as the distance be</code></pre>
+<pre><code>##     tween the furthest objects among the two clusters. It is known as CLINK, com</code></pre>
+<pre><code>##     plete-link or maximum-link.</code></pre>
+<pre><code>##     3. `average`. Defines the proximity between two clusters as the average dist</code></pre>
+<pre><code>##     ance between every pair of objects, one from each cluster. It is also known</code></pre>
+<pre><code>##     as UPGMA or average-link.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Euclidean Distance Formula:</code></pre>
+<pre><code>## d(x,y) = √(∑1ⁿ (xᵢ - yᵢ)²)</code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 1:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Initially, each object is assigned to its own cluster. This leaves us with the f</code></pre>
+<pre><code>## ollowing clusters:</code></pre>
+<pre><code>## CLUSTER #-1 (size: 1)
+##           x         y
+## 1 -1.578117 -1.292868
+## CLUSTER #-2 (size: 1)
+##           x        y
+## 2 0.7027994 1.193823
+## CLUSTER #-3 (size: 1)
+##           x        y
+## 3 0.7854535 1.191428
+## CLUSTER #-4 (size: 1)
+##           x           y
+## 4 0.6757613 -0.04002442
+## CLUSTER #-5 (size: 1)
+##           x         y
+## 5 0.8484305 0.2230609
+## CLUSTER #-6 (size: 1)
+##          x         y
+## 6 0.515489 0.3014147
+## CLUSTER #-7 (size: 1)
+##           x        y
+## 7 0.9187371 1.347416
+## CLUSTER #-8 (size: 1)
+##           x           y
+## 8 0.9062708 -0.01894187
+## CLUSTER #-9 (size: 1)
+##           x       y
+## 9 0.7017478 1.37873
+## CLUSTER #-10 (size: 1)
+##            x        y
+## 10 0.4289005 1.109321</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The matrix of distances between clusters is computed:</code></pre>
+<pre><code>## Distances:
+##        -1    -2    -3    -4    -5    -6    -7    -8    -9
+## -2  3.374                                                
+## -3  3.429 0.083                                          
+## -4  2.579 1.234 1.236                                    
+## -5  2.861 0.982 0.970 0.315                              
+## -6  2.632 0.912 0.930 0.377 0.342                        
+## -7  3.634 0.265 0.205 1.409 1.127 1.121                  
+## -8  2.792 1.230 1.216 0.231 0.249 0.505 1.366            
+## -9  3.512 0.185 0.205 1.419 1.165 1.093 0.219 1.413      
+## -10 3.130 0.287 0.366 1.176 0.981 0.813 0.545 1.225 0.383</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 2:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-2 (size: 1)
+## CLUSTER #-3 (size: 1)
+## Proximity:
+## [1] 0.08268877</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #1 (size: 2) [CLUSTER #-2 + CLUSTER #-3]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##        -1    -4    -5    -6    -7    -8    -9   -10
+## -4  2.579                                          
+## -5  2.861 0.315                                    
+## -6  2.632 0.377 0.342                              
+## -7  3.634 1.409 1.127 1.121                        
+## -8  2.792 0.231 0.249 0.505 1.366                  
+## -9  3.512 1.419 1.165 1.093 0.219 1.413            
+## -10 3.130 1.176 0.981 0.813 0.545 1.225 0.383      
+## 1   3.374 1.234 0.970 0.912 0.205 1.216 0.185 0.287</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 3:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-9 (size: 1)
+## CLUSTER #1 (size: 2)
+## Proximity:
+## [1] 0.1849095</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #2 (size: 3) [CLUSTER #-9 + CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##        -1    -4    -5    -6    -7    -8   -10
+## -4  2.579                                    
+## -5  2.861 0.315                              
+## -6  2.632 0.377 0.342                        
+## -7  3.634 1.409 1.127 1.121                  
+## -8  2.792 0.231 0.249 0.505 1.366            
+## -10 3.130 1.176 0.981 0.813 0.545 1.225      
+## 2   3.374 1.234 0.970 0.912 0.205 1.216 0.287</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 4:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-7 (size: 1)
+## CLUSTER #2 (size: 3)
+## Proximity:
+## [1] 0.2051747</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #3 (size: 4) [CLUSTER #-7 + CLUSTER #2]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##        -1    -4    -5    -6    -8   -10
+## -4  2.579                              
+## -5  2.861 0.315                        
+## -6  2.632 0.377 0.342                  
+## -8  2.792 0.231 0.249 0.505            
+## -10 3.130 1.176 0.981 0.813 1.225      
+## 3   3.374 1.234 0.970 0.912 1.216 0.287</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 5:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-4 (size: 1)
+## CLUSTER #-8 (size: 1)
+## Proximity:
+## [1] 0.2314716</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #4 (size: 2) [CLUSTER #-4 + CLUSTER #-8]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##        -1    -5    -6   -10     3
+## -5  2.861                        
+## -6  2.632 0.342                  
+## -10 3.130 0.981 0.813            
+## 3   3.374 0.970 0.912 0.287      
+## 4   2.579 0.249 0.377 1.176 1.216</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 6:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-5 (size: 1)
+## CLUSTER #4 (size: 2)
+## Proximity:
+## [1] 0.2488189</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #5 (size: 3) [CLUSTER #-5 + CLUSTER #4]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##        -1    -6   -10     3
+## -6  2.632                  
+## -10 3.130 0.813            
+## 3   3.374 0.912 0.287      
+## 5   2.579 0.342 0.981 0.970</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 7:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-10 (size: 1)
+## CLUSTER #3 (size: 4)
+## Proximity:
+## [1] 0.2866377</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #6 (size: 5) [CLUSTER #-10 + CLUSTER #3]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##       -1    -6     5
+## -6 2.632            
+## 5  2.579 0.342      
+## 6  3.130 0.813 0.970</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 8:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-6 (size: 1)
+## CLUSTER #5 (size: 3)
+## Proximity:
+## [1] 0.342037</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #7 (size: 4) [CLUSTER #-6 + CLUSTER #5]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##      -1     6
+## 6 3.130      
+## 7 2.579 0.813</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 9:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #6 (size: 5)
+## CLUSTER #7 (size: 4)
+## Proximity:
+## [1] 0.8125336</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #8 (size: 9) [CLUSTER #6 + CLUSTER #7]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+##      -1
+## 8 2.579</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 10:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The two clusters with closest proximity are identified:</code></pre>
+<pre><code>## Clusters:
+## CLUSTER #-1 (size: 1)
+## CLUSTER #8 (size: 9)
+## Proximity:
+## [1] 2.578678</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## They are merged into a new cluster:</code></pre>
+<pre><code>## CLUSTER #9 (size: 10) [CLUSTER #-1 + CLUSTER #8]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The proximity matrix is updated. To do so the rows/columns of the merged cluster</code></pre>
+<pre><code>## s are removed, and the rows/columns of the new cluster are added:</code></pre>
+<pre><code>## Distances:
+## dist(0)</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## RESULTS:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Since all clusters have been merged together, the final clustering hierarchy is:</code></pre>
+<pre><code>## (Check the plot for the dendrogram representation of the hierarchy)</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="dbscan" class="section level2">
+<h2>DBSCAN</h2>
+<p>DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
+is particularly effective at finding clusters of arbitrary shape and
+identifying noise points.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="#cb229-1" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbscan</span>(</span>
+<span id="cb229-2"><a href="#cb229-2" tabindex="-1"></a>  data,</span>
+<span id="cb229-3"><a href="#cb229-3" tabindex="-1"></a>  <span class="at">epsilon =</span> <span class="fl">0.3</span>,</span>
+<span id="cb229-4"><a href="#cb229-4" tabindex="-1"></a>  <span class="at">min_pts =</span> <span class="dv">4</span>,</span>
+<span id="cb229-5"><a href="#cb229-5" tabindex="-1"></a>  <span class="at">learn =</span> <span class="cn">TRUE</span></span>
+<span id="cb229-6"><a href="#cb229-6" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## EXPLANATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The data given by data is clustered by the DBSCAN method, which aims to partitio</code></pre>
+<pre><code>## n the points into clusters such that the points in a cluster are close to each o</code></pre>
+<pre><code>## ther and the points in different clusters are far away from each other. The clus</code></pre>
+<pre><code>## ters are defined as dense regions of points separated by regions of low density.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The DBSCAN method follows a 2 step process:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>##     1. For each point, the neighborhood of radius epsilon is computed. If the ne</code></pre>
+<pre><code>##     ighborhood contains at least min_pts points, then the point is considered a</code></pre>
+<pre><code>##     core point. Otherwise, the point is considered an outlier.</code></pre>
+<pre><code>##     2. For each core point, if the core point is not already assigned to a clust</code></pre>
+<pre><code>##     er, a new cluster is created and the core point is assigned to it. Then, the</code></pre>
+<pre><code>##      neighborhood of the core point is explored. If a point in the neighborhood</code></pre>
+<pre><code>##     is a core point, then the neighborhood of that point is also explored. This</code></pre>
+<pre><code>##     process is repeated until all points in the neighborhood have been explored.</code></pre>
+<pre><code>##      If a point in the neighborhood is not already assigned to a cluster, then i</code></pre>
+<pre><code>##     t is assigned to the cluster of the core point.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Whatever points are not assigned to a cluster are considered outliers.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 1:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The pairwise distances between observations are precomputed in order to later de</code></pre>
+<pre><code>## termine which of them are core observations. The distance matrix is:</code></pre>
+<pre><code>## Distances:
+##        1     2     3     4     5     6     7     8     9    10
+## 1  0.000 3.374 3.429 2.579 2.861 2.632 3.634 2.792 3.512 3.130
+## 2  3.374 0.000 0.083 1.234 0.982 0.912 0.265 1.230 0.185 0.287
+## 3  3.429 0.083 0.000 1.236 0.970 0.930 0.205 1.216 0.205 0.366
+## 4  2.579 1.234 1.236 0.000 0.315 0.377 1.409 0.231 1.419 1.176
+## 5  2.861 0.982 0.970 0.315 0.000 0.342 1.127 0.249 1.165 0.981
+## 6  2.632 0.912 0.930 0.377 0.342 0.000 1.121 0.505 1.093 0.813
+## 7  3.634 0.265 0.205 1.409 1.127 1.121 0.000 1.366 0.219 0.545
+## 8  2.792 1.230 1.216 0.231 0.249 0.505 1.366 0.000 1.413 1.225
+## 9  3.512 0.185 0.205 1.419 1.165 1.093 0.219 1.413 0.000 0.383
+## 10 3.130 0.287 0.366 1.176 0.981 0.813 0.545 1.225 0.383 0.000</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP 2:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Every observation is labeled as UNVISITED. We are now going to loop over every o</code></pre>
+<pre><code>## bservation and, if it is not already assigned to a cluster, we will try to expan</code></pre>
+<pre><code>## d a new cluster around it...</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## NOISE:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## An UNVISITED observation is labeled as NOISE:</code></pre>
+<pre><code>## Observation #1 [UNVISITED -&gt; NOISE]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## CLUSTER #1:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## A new cluster is going to be expanded around an UNVISITED core observation:</code></pre>
+<pre><code>## Observation #2 [UNVISITED -&gt; CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The cluster is also expanded around the neighbors of the core observation:</code></pre>
+<pre><code>## Observation #3 [UNVISITED -&gt; CLUSTER #1]
+## Observation #7 [UNVISITED -&gt; CLUSTER #1]
+## Observation #9 [UNVISITED -&gt; CLUSTER #1]
+## Observation #10 [UNVISITED -&gt; CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## All of these observations are added to the cluster.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ***</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The following core observation is expanded:</code></pre>
+<pre><code>## Observation #3 [CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## It&#39;s neighborhood is:</code></pre>
+<pre><code>## Observation #2 [CLUSTER #1]
+## Observation #3 [CLUSTER #1]
+## Observation #7 [CLUSTER #1]
+## Observation #9 [CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Upon doing it, no observations are added to the cluster...</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Additionally, no other observations are expanded...</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ***</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The following core observation is expanded:</code></pre>
+<pre><code>## Observation #7 [CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## It&#39;s neighborhood is:</code></pre>
+<pre><code>## Observation #2 [CLUSTER #1]
+## Observation #3 [CLUSTER #1]
+## Observation #7 [CLUSTER #1]
+## Observation #9 [CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Upon doing it, no observations are added to the cluster...</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Additionally, no other observations are expanded...</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ***</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The following core observation is expanded:</code></pre>
+<pre><code>## Observation #9 [CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## It&#39;s neighborhood is:</code></pre>
+<pre><code>## Observation #2 [CLUSTER #1]
+## Observation #3 [CLUSTER #1]
+## Observation #7 [CLUSTER #1]
+## Observation #9 [CLUSTER #1]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Upon doing it, no observations are added to the cluster...</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Additionally, no other observations are expanded...</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## NOISE:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## An UNVISITED observation is labeled as NOISE:</code></pre>
+<pre><code>## Observation #4 [UNVISITED -&gt; NOISE]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## NOISE:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## An UNVISITED observation is labeled as NOISE:</code></pre>
+<pre><code>## Observation #5 [UNVISITED -&gt; NOISE]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## NOISE:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## An UNVISITED observation is labeled as NOISE:</code></pre>
+<pre><code>## Observation #6 [UNVISITED -&gt; NOISE]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## NOISE:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## An UNVISITED observation is labeled as NOISE:</code></pre>
+<pre><code>## Observation #8 [UNVISITED -&gt; NOISE]</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## RESULTS:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Having gone through every observation the following clusters have been found:</code></pre>
+<pre><code>## CLUSTER #0 (NOISE):
+##            x           y
+## 1 -1.5781168 -1.29286766
+## 4  0.6757613 -0.04002442
+## 5  0.8484305  0.22306094
+## 6  0.5154890  0.30141469
+## 8  0.9062708 -0.01894187</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## CLUSTER #1:
+##            x        y
+## 2  0.7027994 1.193823
+## 3  0.7854535 1.191428
+## 7  0.9187371 1.347416
+## 9  0.7017478 1.378730
+## 10 0.4289005 1.109321</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAUVBMVEUAAAAAADoAAGYAOpAAZrY6AAA6ADo6AGY6kNtmAABmADpmZmZmtv+QOgCQ2/+2ZgC2/7a2///bkDrb/9vb///fU2v/tmb/25D//7b//9v///8UBH7AAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAE70lEQVR4nO3dYXfSPABA4bo5HTqGVumA//9DBYGx7VhuWpImNfd+2jlv35Q9lhRKVpqdXa3J/QBKTyBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCAoMlAzm3IBxR0uXTUCrdfr8I0rBFqvhwjVDBTkVDFQ2JFUIdDucgAJdC2BqJxz0HZ5fJV19zPKcHEr4DTfNo/HH7rzDzcNF7f1esiJPgnQdvnK0t7/vnm4yK0HCSUB2iyezj92PU+yuoFKPILeiOQH2s9Bp0OomDnoA0nmOejwJDuexXqOn+xA4dXyOkggaqRPcqC2vLPYsCY+goZfycxdNU+xsQkECQQJBCV6L3aZjD2L/avtsvdC0JjhcpbsgtnnmMNlLNUc1DVPV/979UATD5cugSCBIIEggSCBIIEggSCBIIEgL7lCHkGQQJBAkECQQFBNQKPOnRUBjXt1IRD9X9E3zDJc0C7fAYVi1bQM+INPmFCFy4CP+88KVOIizo/7zwpU9jLg0wPIOQfN4AgKbjjQZtE3r1wqbxnw6MYcQe3+8ASj4pYBj27kUyzAKNJ+czd6DmqvvcqJuN90hU3T44C6/eBP+7m49xn0WoHLgE8wgSf6EUCH+eUo03cOv/rgcl+TPu89GdBm8el51CMbt9/oJQeKU36gpHMQVuSb1fOuBz2/a32zGpxvNaBq36yG5hEEpZqDqn6zGlD1b1an22/uBIIEggSCBIIEggSCBIIEgiYGKuCS68A8giCBIIEggSCBIIGgCj/2GZYf+0BetIf82AfyCIL82AfyYx/I10GQQFBqoALXKA7LIwgSCPKSK+QRBAkEJXov5q1Kr+etSilvVUp5q9Kp9ps7gaCUQG+um40aroiXkwUDlfGCWyB6FNE3vCQQ5Bw0xX5zJxCUDWg2ZQK6YRdhm0UdbNqRbt2FQFE2E2jKwaYd6dZdCBRlM4GmHGzakW7dhUBRNvsfgeadQJBAkECQQJBAkECQQJBAkECQQJBAkEBQeqC/f8YZdJPql6+wwK9rmrAbzuJI4SUH2i73v1PbwNK9Q5sFrIDs9iN1IUI40oCSA708HBbt9f1tx5s6utP3cU3AiqlxpCFNNAfxP3zXPMJ9rEOpeaQhTQS0CnnEBPTlmTcKGmlI0wD1/gnn+62u/1rHozBoEpobUBcyR1cMFHb8VPgUO31LRws+r1/mEWmS5pGGlP4IamFx/iX4tYJP8/MCenkI/qoX+rWCXyjOCqg9LuiKMrW2oW815gQ09wSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIJKBzosKNssgpcYxa90oMOysr6vgZmk0oF23d2Pb0GLphJVPNBuFbaGOFXlA9EdmhNXPNB2+T3egsMRFQ/U3v+6cufP9JUOdPjSt4hrVodXOtBqf4rHO+mnrHSg7AkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQT9AR9IeWJMvisvAAAAAElFTkSuQmCC" /><!-- --></p>
+</div>
+<div id="gaussian-mixture-models" class="section level2">
+<h2>Gaussian Mixture Models</h2>
+<p>This probabilistic model assumes that the data points are generated
+from a mixture of several Gaussian distributions.</p>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="#cb381-1" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">gaussian_mixture</span>(</span>
+<span id="cb381-2"><a href="#cb381-2" tabindex="-1"></a>  data,</span>
+<span id="cb381-3"><a href="#cb381-3" tabindex="-1"></a>  <span class="at">k =</span> <span class="dv">3</span>,</span>
+<span id="cb381-4"><a href="#cb381-4" tabindex="-1"></a>  <span class="at">max_iter =</span> <span class="dv">100</span>,</span>
+<span id="cb381-5"><a href="#cb381-5" tabindex="-1"></a>  <span class="at">learn =</span> <span class="cn">TRUE</span></span>
+<span id="cb381-6"><a href="#cb381-6" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## EXPLANATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The Gaussian Mixture Model with Expectation Maximization (GMM with EM) algorithm</code></pre>
+<pre><code>##  aims to model the data as a Gaussian Mixture Model i.e. the weighted sum of sev</code></pre>
+<pre><code>## eral Gaussian distributions, where each component i.e. each Gaussian distributio</code></pre>
+<pre><code>## n, represents a cluster.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The Gaussian distributions are parameterized by their mean vector (mu), covarian</code></pre>
+<pre><code>## ce matrix (sigma) and mixing proportion (lambda). Initially, the mean vector is</code></pre>
+<pre><code>## set to the cluster centers obtained by performing a k-means clustering on the da</code></pre>
+<pre><code>## ta, the covariance matrix is set to the covariance matrix of the data points bel</code></pre>
+<pre><code>## onging to each cluster and the mixing proportion is set to the proportion of dat</code></pre>
+<pre><code>## a points belonging to each cluster. The algorithm then optimizes the GMM using t</code></pre>
+<pre><code>## he EM algorithm.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The EM algorithm is an iterative algorithm that alternates between two steps:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>##     1. Expectation step. Compute how much is each observation expected to belong</code></pre>
+<pre><code>##      to each component of the GMM.</code></pre>
+<pre><code>##     2. Maximization step. Recompute the GMM according to the expectations from t</code></pre>
+<pre><code>##     he E-step in order to maximize them.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The algorithm stops when the changes in the expectations are sufficiently small</code></pre>
+<pre><code>## or when a maximum number of iterations is reached.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## INITIALIZATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The GMM is initialized by calling kmeans. The initial components are:</code></pre>
+<pre><code>## *** Component #1 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.7075276 1.2441437
+## sigma:
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #2 ***</code></pre>
+<pre><code>## mu:
+## [1] -1.578117 -1.292868
+## sigma:
+##      [,1] [,2]
+## [1,]   NA   NA
+## [2,]   NA   NA
+## lambda:
+## [1] 0.1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #3 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.7364879 0.1163773
+## sigma:
+##             [,1]        [,2]
+## [1,]  0.03129520 -0.01414258
+## [2,] -0.01414258  0.02946434
+## lambda:
+## [1] 0.4</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## These initial components are then optimized using the EM algorithm.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## EM ALGORITHM:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## To measure how much the expectations change at each step we will use the log lik</code></pre>
+<pre><code>## elihood. The log likelihood is the sum of the logarithm of the probability of th</code></pre>
+<pre><code>## e data given the model. The higher the log likelihood, the better the model.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The current log likelihood is:</code></pre>
+<pre><code>## loglik:
+## [1] -958.4645</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP #0:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## E-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The expectation of each observation to belong to each component of the GMM is th</code></pre>
+<pre><code>## e following:</code></pre>
+<pre><code>## Expectation:
+##    [,1] [,2] [,3]
+## 1     0   NA    1
+## 2     1   NA    0
+## 3     1   NA    0
+## 4     0   NA    1
+## 5     0   NA    1
+## 6     0   NA    1
+## 7     1   NA    0
+## 8     0   NA    1
+## 9     1   NA    0
+## 10    1   NA    0</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## M-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new components are:</code></pre>
+<pre><code>## *** Component #1 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.7075276 1.2441437
+## sigma:
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #2 ***</code></pre>
+<pre><code>## mu:
+## [1] 1 1
+## sigma:
+##           [,1]      [,2]
+## [1,] 0.8415997 0.7219930
+## [2,] 0.7219930 0.9798987
+## lambda:
+## [1] 1e-300</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #3 ***</code></pre>
+<pre><code>## mu:
+## [1]  0.2735670 -0.1654717
+## sigma:
+##           [,1]      [,2]
+## [1,] 1.0949504 0.6417621
+## [2,] 0.6417621 0.4192926
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new log likelihood is:</code></pre>
+<pre><code>## loglik:
+## [1] -210.6484</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP #1:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## E-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The expectation of each observation to belong to each component of the GMM is th</code></pre>
+<pre><code>## e following:</code></pre>
+<pre><code>## Expectation:
+##    [,1] [,2] [,3]
+## 1     0    0    1
+## 2     1    0    0
+## 3     1    0    0
+## 4     0    0    1
+## 5     0    0    1
+## 6     0    0    1
+## 7     1    0    0
+## 8     0    0    1
+## 9     1    0    0
+## 10    1    0    0</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## M-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new components are:</code></pre>
+<pre><code>## *** Component #1 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.7075276 1.2441437
+## sigma:
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #2 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.6035213 0.2872708
+## sigma:
+##           [,1]      [,2]
+## [1,] 0.1674271 0.0841496
+## [2,] 0.0841496 0.2447075
+## lambda:
+## [1] 4.072114e-301</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #3 ***</code></pre>
+<pre><code>## mu:
+## [1]  0.2735670 -0.1654716
+## sigma:
+##           [,1]      [,2]
+## [1,] 1.0949503 0.6417621
+## [2,] 0.6417621 0.4192927
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new log likelihood is:</code></pre>
+<pre><code>## loglik:
+## [1] -4.75882</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP #2:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## E-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The expectation of each observation to belong to each component of the GMM is th</code></pre>
+<pre><code>## e following:</code></pre>
+<pre><code>## Expectation:
+##    [,1] [,2] [,3]
+## 1     0    0    1
+## 2     1    0    0
+## 3     1    0    0
+## 4     0    0    1
+## 5     0    0    1
+## 6     0    0    1
+## 7     1    0    0
+## 8     0    0    1
+## 9     1    0    0
+## 10    1    0    0</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## M-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new components are:</code></pre>
+<pre><code>## *** Component #1 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.7075276 1.2441437
+## sigma:
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #2 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.6502022 0.2060456
+## sigma:
+##             [,1]        [,2]
+## [1,]  0.04111510 -0.02457912
+## [2,] -0.02457912  0.05821502
+## lambda:
+## [1] 6.015025e-301</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #3 ***</code></pre>
+<pre><code>## mu:
+## [1]  0.2735670 -0.1654716
+## sigma:
+##           [,1]      [,2]
+## [1,] 1.0949503 0.6417621
+## [2,] 0.6417621 0.4192927
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new log likelihood is:</code></pre>
+<pre><code>## loglik:
+## [1] -4.758821</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## STEP #3:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## E-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The expectation of each observation to belong to each component of the GMM is th</code></pre>
+<pre><code>## e following:</code></pre>
+<pre><code>## Expectation:
+##    [,1] [,2] [,3]
+## 1     0    0    1
+## 2     1    0    0
+## 3     1    0    0
+## 4     0    0    1
+## 5     0    0    1
+## 6     0    0    1
+## 7     1    0    0
+## 8     0    0    1
+## 9     1    0    0
+## 10    1    0    0</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## M-STEP:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new components are:</code></pre>
+<pre><code>## *** Component #1 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.7075276 1.2441437
+## sigma:
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #2 ***</code></pre>
+<pre><code>## mu:
+## [1] 0.6489054 0.1874634
+## sigma:
+##             [,1]        [,2]
+## [1,]  0.04375938 -0.02950721
+## [2,] -0.02950721  0.03592890
+## lambda:
+## [1] 3.077336e-300</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## *** Component #3 ***</code></pre>
+<pre><code>## mu:
+## [1]  0.2735670 -0.1654716
+## sigma:
+##           [,1]      [,2]
+## [1,] 1.0949503 0.6417621
+## [2,] 0.6417621 0.4192927
+## lambda:
+## [1] 0.5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The new log likelihood is:</code></pre>
+<pre><code>## loglik:
+## [1] -4.758821</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## FINAL RESULTS:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The algorithm stopped because the change in the log likelihood was smaller than</code></pre>
+<pre><code>## 1e-6.</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## With the current GMM every observation is assigned to the cluster it is most lik</code></pre>
+<pre><code>## ely to belong to. The final clusters are:</code></pre>
+<pre><code>## Cluster assignments:
+##  1  2  3  4  5  6  7  8  9 10 
+##  3  1  1  3  3  3  1  3  1  1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## </code></pre>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="#cb571-1" tabindex="-1"></a><span class="co"># Plot results with contours</span></span>
+<span id="cb571-2"><a href="#cb571-2" tabindex="-1"></a><span class="fu">plot</span>(data, <span class="at">col =</span> result<span class="sc">$</span>cluster, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAVFBMVEUAAAAAADoAAGYAOpAAZrY6AAA6ADo6AGY6Ojo6kNth0E9mAABmADpmZmZmtv+QOgCQ2/+2ZgC2/7a2///bkDrb/9vb////tmb/25D//7b//9v///+mKWolAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAFI0lEQVR4nO3d2XqTQABAYdw10dZolKZ9//c0kUIWGQ7DMCzm/FetcWh6PhgCIbR4Uadi7iewdAYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCIwcqVmOuQOMuLh8DnbWuLgZqtG9QBmrcBHr9xkCN60D1dwY6u12BDNTFQCTvHPT8WL3KevtzlMVNY8Ld/L74Un1R1l8kLW4arxvVTaYsgZ4fmyz7d7+TFzeRKtDtq6EsgQ7bh/rLMrCR3XegdaxB/0w59RaWP9BxDnpdhRY8B4UO1aeYg04bWbUXC6w/Sw50+996Ly/lyWRf3JBnYCB6Cr1OhuUOtF/PXqzdxGtQ/JnMud3xJtaPgYCBgIFApmOx82TsXqzN82PwRNCQxc0p2wmz92Mubka55qCyeOh8/O4DTby4fAwEDAQMBAwEDAQMBAwEDAQMBDzlClyDgIGAgYCBgIHA3QfabDadj997oM0GChnIQJ3aA138W7Z3NdZyGXCgT/OvuS7BW+FlwGfZA63jIs6w7IHWeRnwhdxz0NrXoEvxgQ7b0LxytobLgHsasgbtj7snaLSCy4B7GriJ9Wg00s+d2+A5aN/1KmfEnzuXep4eFqg81nk4zsXBLaixosuAr14yNnv6AYFO80tVJrQP71jKcs9JXx90JAQ6bN98T386/3GgcSw9UOIchNZzsHrWft7Dg1XgoQbwYBW4BoFcc9BdH6z2cPcHq9P93LkZCBgIGAgYCBgIGAgYCBgIeBkwcA0CBgIGAgYCBgIGAr7tA3zbB3jSHvi2D3ANAr7tA3zbB/g6CBgI5A60omsU27kGAQMBT7kC1yBgIJDpWMxblXbzVqXEW5USb1U61c+dm4FAzkAX583aF0c3FlmCOQPhfTOWwEDAQMA5CLgXAwYCswVajZkCRSwZHk97OHX4kP8Zy0CJSzZQ2uMGMlDa4wYyUNrjBrr7QP8JAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQOBLIGePtVX6lWXNcJladfKomjuKhs9PGlwqxyBDtvmUsanj7F30C2Pv2BZ/5Kxw5MGt8sQqLy4Bjb6zsvVG/+794OGJw0OGD9QWXw5P7V97Br+9OF0EWT9WZnI4UmDA7LMQedAu89F3F3yq+2iXkDk8KTBAXkDHbanzybuIp5lNYO8ziOxw5MGB2Reg9q+7R56+TvGDk8aHDBFoGpq6Od6K4kcnjQ4YMxAzV/luA3Ub3/7d/j1PBsz/OV2ko4cHJB3DaqeccxqfrWnjh2eNDgg917s9GSjJsqr13qxw5MGt8sXqPrgy64o4OMdt/bV0cKw4UmDW3mwCgwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDASWHuh0udhhm3yt6nBLD3S6aCz0Z2AmsfRAL+XbH1/H+EjBUIsP9LJL/jxKkuUHojs0Z7b4QM+P30b5UMpQiw+0f/er486f+S090OmPvo3zuaaBlh5od9zF4530c1p6oNkZCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgI/AEbPqt9uK+ShAAAAABJRU5ErkJggg==" /><!-- --></p>
+</div>
+<div id="genetic-k-means" class="section level2">
+<h2>Genetic K-Means</h2>
+<p>This algorithm combines traditional k-means with genetic algorithm
+concepts for potentially better cluster optimization.</p>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="#cb572-1" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">genetic_kmeans</span>(</span>
+<span id="cb572-2"><a href="#cb572-2" tabindex="-1"></a>  data,</span>
+<span id="cb572-3"><a href="#cb572-3" tabindex="-1"></a>  <span class="at">k =</span> <span class="dv">3</span>,</span>
+<span id="cb572-4"><a href="#cb572-4" tabindex="-1"></a>  <span class="at">population_size =</span> <span class="dv">10</span>,</span>
+<span id="cb572-5"><a href="#cb572-5" tabindex="-1"></a>  <span class="at">mut_probability =</span> <span class="fl">0.5</span>,</span>
+<span id="cb572-6"><a href="#cb572-6" tabindex="-1"></a>  <span class="at">max_generations =</span> <span class="dv">10</span>,</span>
+<span id="cb572-7"><a href="#cb572-7" tabindex="-1"></a>  <span class="at">learn =</span> <span class="cn">TRUE</span></span>
+<span id="cb572-8"><a href="#cb572-8" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## EXPLANATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The Genetic K-Means algorithm combines the K-Means clustering method with geneti</code></pre>
+<pre><code>## c algorithm concepts.</code></pre>
+<pre><code>## It follows these main steps:</code></pre>
+<pre><code>## 1. Initialize a population of random cluster assignments</code></pre>
+<pre><code>## 2. Evaluate the fitness of each individual based on within-cluster variation</code></pre>
+<pre><code>## 3. Select parents for the next generation based on fitness</code></pre>
+<pre><code>## 4. Apply mutation and crossover to create new individuals</code></pre>
+<pre><code>## 5. Repeat steps 2-4 for a specified number of generations</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## INITIALIZATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## A population of 10 individuals has been randomly initialized.</code></pre>
+<pre><code>## Each individual represents a possible clustering solution.</code></pre>
+<pre><code>## Here&#39;s a sample of the initial population (first 5 individuals, first 10 data po</code></pre>
+<pre><code>## ints):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3    1    2    3    1    3    2    2    3     1
+## [2,]    2    2    3    1    3    1    3    2    1     1
+## [3,]    3    2    1    2    3    2    3    3    1     1
+## [4,]    3    3    2    1    1    3    1    1    2     2
+## [5,]    1    3    3    1    3    1    2    2    2     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## INITIAL FITNESS:</code></pre>
+<pre><code>## Best fitness: 3.59</code></pre>
+<pre><code>## Average fitness: 1.62</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 1 3 3 1 3 1 2 2 2 3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    1    3    3    2    2    1     3
+## [2,]    1    3    2    1    2    2    3    1    2     3
+## [3,]    1    2    3    1    3    1    2    2    2     3
+## [4,]    1    3    3    2    3    1    1    3    2     3
+## [5,]    1    3    3    1    3    3    2    2    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    2    2    3    3    2    3     3
+## [2,]    1    3    3    1    2    2    3    2    3     3
+## [3,]    1    2    2    1    3    3    2    3    2     3
+## [4,]    1    3    3    2    2    2    3    2    3     3
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 3.79</code></pre>
+<pre><code>## Average fitness: 3.02</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 2</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    2    2    2    3    2    3     3
+## [2,]    1    2    3    2    3    2    3    2    3     1
+## [3,]    1    3    3    2    2    2    3    2    2     3
+## [4,]    2    2    2    3    2    2    3    2    1     1
+## [5,]    1    3    2    2    2    2    3    2    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    2    2    2    3    2    3     3
+## [2,]    1    3    3    2    2    2    3    2    3     3
+## [3,]    1    3    3    2    2    2    3    2    3     3
+## [4,]    2    1    1    2    3    2    1    2    1     1
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 3.86</code></pre>
+<pre><code>## Average fitness: 3.48</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    3    2    3    2    2    3     3
+## [2,]    2    3    3    1    1    2    3    1    2     3
+## [3,]    1    3    1    3    2    2    3    2    3     3
+## [4,]    3    3    3    2    2    2    3    3    1     3
+## [5,]    1    3    3    2    3    2    1    2    3     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    2    2    2    3    2    3     3
+## [2,]    2    3    3    1    1    1    3    1    3     3
+## [3,]    1    3    3    2    2    2    3    2    3     3
+## [4,]    3    1    1    3    2    2    3    2    1     1
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 6.68</code></pre>
+<pre><code>## Average fitness: 5.46</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 4</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 2 3 3 1 1 1 3 1 3 3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    2    3    1    2    1    3    3    1    3     3
+## [2,]    3    1    3    1    1    1    3    1    1     1
+## [3,]    2    2    3    3    1    3    3    1    3     1
+## [4,]    1    3    3    2    1    3    2    2    3     3
+## [5,]    2    3    2    1    2    3    1    1    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    2    3    3    1    1    1    3    1    3     3
+## [2,]    3    1    2    1    1    2    1    1    1     2
+## [3,]    2    3    3    1    1    1    3    1    3     3
+## [4,]    1    3    3    2    2    2    3    2    3     3
+## [5,]    2    3    3    1    1    1    3    1    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 7.35</code></pre>
+<pre><code>## Average fitness: 6.35</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    2    2    2    2    2    3     3
+## [2,]    2    3    3    3    2    2    3    2    3     1
+## [3,]    1    3    2    2    2    3    3    1    3     1
+## [4,]    1    3    2    2    2    2    1    2    2     3
+## [5,]    3    2    1    1    2    2    1    3    3     3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    3    3    2    2    2    3    2    3     3
+## [2,]    2    3    3    2    2    2    3    2    3     1
+## [3,]    1    3    3    2    2    2    3    2    3     3
+## [4,]    1    3    3    2    2    2    3    2    3     3
+## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 4.22</code></pre>
+<pre><code>## Average fitness: 3.79</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 6</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3    1    2    2    2    1    1    2    3     1
+## [2,]    3    2    1    1    2    2    2    2    1     3
+## [3,]    3    3    1    2    2    2    2    2    1     1
+## [4,]    3    1    1    2    1    1    1    3    1     1
+## [5,]    3    1    1    2    2    1    1    2    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3    1    1    2    2    2    1    2    1     1
+## [2,]    3    1    1    2    2    2    1    2    1     1
+## [3,]    3    1    1    2    2    2    1    2    1     1
+## [4,]    3    1    1    2    2    2    1    2    1     1
+## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 4.89</code></pre>
+<pre><code>## Average fitness: 4.07</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 7</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    2    1    2    2    1    3    1    2    1     1
+## [2,]    1    1    3    2    3    3    1    2    1     1
+## [3,]    3    1    1    2    2    2    1    2    1     3
+## [4,]    2    1    2    2    2    2    1    3    2     1
+## [5,]    3    1    1    1    1    2    1    2    1     2</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    2    1    1    3    3    3    1    3    1     1
+## [2,]    2    3    3    2    2    3    3    2    1     1
+## [3,]    3    1    1    2    2    2    1    2    1     1
+## [4,]    2    1    1    3    3    2    1    3    1     1
+## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 5.19</code></pre>
+<pre><code>## Average fitness: 4.34</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 8</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    2    1    2    3    1    2    3    3    2     1
+## [2,]    3    1    3    2    1    3    1    2    1     1
+## [3,]    3    1    1    2    2    1    1    2    1     1
+## [4,]    3    1    1    2    2    2    1    2    1     3
+## [5,]    2    1    1    2    1    1    2    3    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    2    1    1    3    3    3    1    3    1     1
+## [2,]    3    1    1    2    2    2    1    2    1     1
+## [3,]    3    1    1    2    2    2    1    2    1     1
+## [4,]    3    1    1    2    2    2    1    2    1     1
+## [5,]    2    1    1    3    3    3    1    3    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 0.00</code></pre>
+<pre><code>## Average fitness: 0.00</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 9</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3    1    1    2    2    2    1    1    1     1
+## [2,]    1    1    2    1    3    2    1    3    3     1
+## [3,]    3    1    2    2    2    1    3    2    1     1
+## [4,]    3    1    1    2    3    2    1    2    1     1
+## [5,]    3    1    3    2    2    2    2    2    1     2</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3    1    1    2    2    2    1    2    1     1
+## [2,]    1    2    2    3    3    1    2    3    2     2
+## [3,]    3    1    1    2    2    2    1    2    1     1
+## [4,]    3    1    1    2    2    2    1    2    1     1
+## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 2.45</code></pre>
+<pre><code>## Average fitness: 2.21</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## GENERATION: 10</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## SELECTION:</code></pre>
+<pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
+<pre><code>## Selected parent (first 10 data points):</code></pre>
+<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## MUTATION:</code></pre>
+<pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
+<pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3    2    3    3    1    2    1    2    1     1
+## [2,]    3    1    1    2    2    3    1    2    2     1
+## [3,]    2    2    3    2    2    1    1    2    1     1
+## [4,]    3    1    2    1    2    2    3    2    2     3
+## [5,]    3    1    1    1    1    2    2    2    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## CROSSOVER:</code></pre>
+<pre><code>## K-Means Operator (KMO) is applied as a form of crossover.</code></pre>
+<pre><code>## This reassigns each point to its nearest center.</code></pre>
+<pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
+<pre><code>## :</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3    1    1    2    2    2    1    2    1     1
+## [2,]    3    1    1    2    2    2    1    2    1     1
+## [3,]    2    3    3    2    2    2    3    2    3     1
+## [4,]    3    2    2    1    1    1    2    1    2     2
+## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## FITNESS EVALUATION:</code></pre>
+<pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
+<pre><code>## Best fitness in this generation: 6.46</code></pre>
+<pre><code>## Average fitness: 4.97</code></pre>
+<pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Press [enter] to continue</code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## FINAL RESULTS:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Number of clusters: 3</code></pre>
+<pre><code>## Total sum of squares: 11.68</code></pre>
+<pre><code>## Total within-cluster sum of squares: 0.36</code></pre>
+<pre><code>## Between-cluster sum of squares: 11.31</code></pre>
+<pre><code>## Cluster sizes:</code></pre>
+<pre><code>## [1] 1 4 5</code></pre>
+<pre><code>## Final cluster centers:</code></pre>
+<pre><code>##   [,1]    [,2]   
+## 1 &quot;-1.58&quot; &quot;-1.29&quot;
+## 2 &quot;0.74&quot;  &quot;0.12&quot; 
+## 3 &quot;0.71&quot;  &quot;1.24&quot;</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Generating plot of clustering results...</code></pre>
+<pre><code>## Plot generated. Check the graphics device.</code></pre>
+<pre><code>## </code></pre>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="correlation-clustering" class="section level2">
+<h2>Correlation Clustering</h2>
+<p>Correlation clustering performs hierarchical clustering by analyzing
+relationships between data points and a target, with support for
+weighted features.</p>
+<div class="sourceCode" id="cb916"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb916-1"><a href="#cb916-1" tabindex="-1"></a><span class="co"># Create sample data</span></span>
+<span id="cb916-2"><a href="#cb916-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">9</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">4</span>), <span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb916-3"><a href="#cb916-3" tabindex="-1"></a>dataFrame <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(data)</span>
+<span id="cb916-4"><a href="#cb916-4" tabindex="-1"></a>target <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb916-5"><a href="#cb916-5" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.3</span>)</span>
+<span id="cb916-6"><a href="#cb916-6" tabindex="-1"></a></span>
+<span id="cb916-7"><a href="#cb916-7" tabindex="-1"></a><span class="co"># Perform correlation clustering</span></span>
+<span id="cb916-8"><a href="#cb916-8" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">correlation_clustering</span>(</span>
+<span id="cb916-9"><a href="#cb916-9" tabindex="-1"></a>    dataFrame,</span>
+<span id="cb916-10"><a href="#cb916-10" tabindex="-1"></a>    <span class="at">target =</span> target,</span>
+<span id="cb916-11"><a href="#cb916-11" tabindex="-1"></a>    <span class="at">weight =</span> weights,</span>
+<span id="cb916-12"><a href="#cb916-12" tabindex="-1"></a>    <span class="at">distance_method =</span> <span class="st">&quot;euclidean&quot;</span>,</span>
+<span id="cb916-13"><a href="#cb916-13" tabindex="-1"></a>    <span class="at">normalize =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb916-14"><a href="#cb916-14" tabindex="-1"></a>    <span class="at">learn =</span> <span class="cn">TRUE</span></span>
+<span id="cb916-15"><a href="#cb916-15" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## EXPLANATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The Correlation Hierarchical Clustering algorithm is a classification technique</code></pre>
+<pre><code>## that:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>##     1. Initializes a cluster for each data point</code></pre>
+<pre><code>##     2. Calculates distances between clusters and a given target</code></pre>
+<pre><code>##     3. Applies weights to achieve weighted results</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Due to normalize = TRUE, weights will be normalized to [0,1] range</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## WEIGHT NORMALIZATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Initial weights:</code></pre>
+<pre><code>##   Weight 1: 0.100000</code></pre>
+<pre><code>##   Weight 2: 0.600000</code></pre>
+<pre><code>##   Weight 3: 0.300000</code></pre>
+<pre><code>## No weights provided</code></pre>
+<pre><code>## Initializing 3 weights with value 1</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Normalizing weights:</code></pre>
+<pre><code>## Total sum: 1.000000</code></pre>
+<pre><code>## Formula: weight[i] = weight[i] / total</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## 
+##  These are the new weights:</code></pre>
+<pre><code>##   Weight 1: 0.100000</code></pre>
+<pre><code>##   Weight 2: 0.600000</code></pre>
+<pre><code>##   Weight 3: 0.300000</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## WEIGHTS:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## The following weights will be used:</code></pre>
+<pre><code>## [1] 0.1 0.6 0.3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Euclidean Distance Formula:</code></pre>
+<pre><code>## d(x,y) = √(∑1ⁿ (xᵢ - yᵢ)²)</code></pre>
+<pre><code>## This distance metric will be used to:</code></pre>
+<pre><code>##     - Calculate distances between each cluster and the target</code></pre>
+<pre><code>##     - Sort clusters by their similarity to the target</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## DATA INITIALIZATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Input data:</code></pre>
+<pre><code>##   X1 X2 X3
+## 1  1  1  3
+## 2  2  8  5
+## 3  1  2  8
+## 4  4  9  5
+## 5  5  6  4</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Each cluster is initialized as a matrix with one row and the same columns as the</code></pre>
+<pre><code>##  input data</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Initialized clusters:</code></pre>
+<pre><code>## [[1]]
+##      [,1] [,2] [,3]
+## [1,]    1    1    3
+## 
+## [[2]]
+##      [,1] [,2] [,3]
+## [1,]    2    8    5
+## 
+## [[3]]
+##      [,1] [,2] [,3]
+## [1,]    1    2    8
+## 
+## [[4]]
+##      [,1] [,2] [,3]
+## [1,]    4    9    5
+## 
+## [[5]]
+##      [,1] [,2] [,3]
+## [1,]    5    6    4</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## TARGET INITIALIZATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Input target:</code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## [1] 1 2 3</code></pre>
+<pre><code>## Converting vector target to matrix format</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Validating target dimensions:</code></pre>
+<pre><code>## Target has one row</code></pre>
+<pre><code>## Target has same number of columns as input data</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Final target:</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## INITIALIZATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Initialized data:</code></pre>
+<pre><code>## [[1]]
+##      [,1] [,2] [,3]
+## [1,]    1    1    3
+## 
+## [[2]]
+##      [,1] [,2] [,3]
+## [1,]    2    8    5
+## 
+## [[3]]
+##      [,1] [,2] [,3]
+## [1,]    1    2    8
+## 
+## [[4]]
+##      [,1] [,2] [,3]
+## [1,]    4    9    5
+## 
+## [[5]]
+##      [,1] [,2] [,3]
+## [1,]    5    6    4</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Initialized target:</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## DISTANCE CALCULATION:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Calculating distances between clusters and target using euclidean distance</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## DISTANCES:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Calculated distances:</code></pre>
+<pre><code>## [1] 1.000000 6.403124 5.000000 7.874008 5.744563</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Sorted distances:</code></pre>
+<pre><code>## [1] 1.000000 5.000000 5.744563 6.403124 7.874008</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## 
+##  Then, using sorted distances, the function order the clusters. 
+## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<pre><code>## RESULTS:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Final sorted distances:</code></pre>
+<pre><code>##   cluster sortedDistances
+## 1       1        1.000000
+## 2       3        5.000000
+## 3       5        5.744563
+## 4       2        6.403124
+## 5       4        7.874008</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Final sorted clusters:</code></pre>
+<pre><code>##   cluster X1 X2 X3
+## 1       1  1  1  3
+## 2       3  1  2  8
+## 3       5  5  6  4
+## 4       2  2  8  5
+## 5       4  4  9  5</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Dendrogram visualization:</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## ________________________________________________________________________________</code></pre>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="distances" class="section level2">
+<h2>Distances</h2>
+<p>The package supports various distance metrics for algorithms like
+agglomerative clustering and correlation clustering, the available
+metrics are: euclidean distance, manhattan distance, canberra distance
+and chebyshev distance.</p>
+<p>You can specify these in algorithms that accept a distance
+parameter:</p>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1022-1"><a href="#cb1022-1" tabindex="-1"></a><span class="co"># Using different distance metrics</span></span>
+<span id="cb1022-2"><a href="#cb1022-2" tabindex="-1"></a><span class="fu">agglomerative_clustering</span>(data, <span class="at">distance_method =</span> <span class="st">&quot;euclidean&quot;</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## Cluster method   : single 
+## Distance         : euclidean 
+## Number of objects: 5</code></pre>
+<div class="sourceCode" id="cb1024"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1024-1"><a href="#cb1024-1" tabindex="-1"></a><span class="fu">agglomerative_clustering</span>(data, <span class="at">distance_method =</span> <span class="st">&quot;manhattan&quot;</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## Cluster method   : single 
+## Distance         : manhattan 
+## Number of objects: 5</code></pre>
+<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1026-1"><a href="#cb1026-1" tabindex="-1"></a><span class="fu">agglomerative_clustering</span>(data, <span class="at">distance_method =</span> <span class="st">&quot;canberra&quot;</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAtFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZpAAZrY6AAA6ADo6OgA6OmY6OpA6ZpA6ZrY6kLY6kNtmAABmADpmOgBmOjpmkLZmkNtmtttmtv+QOgCQOjqQZgCQZjqQkGaQkLaQtpCQttuQtv+Q29uQ2/+2ZgC2Zjq2ZpC2kDq2kGa227a229u22/+2///bkDrbkGbbtmbbtpDb27bb29vb2//b/9vb////tmb/25D/27b//7b//9v////h03yVAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAI5klEQVR4nO2da2ObNhiFcefMWdJmydq1ydZt3Ux2ScratDNJzP//X9MFCYGAA1j4gs/zofNAeiU9FkIyl0QZaSXadQX2HQoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUBKAgQrcQ/65toIf85WfUPkESzZf6xJUJp1/rTWRRF5/ftWeTePz/CYE21Usxe3benk8TRi9piNDsQ9Pxa1z66BG19el1f8+6ChKJr1IDOggbiCGrBaZP4aLhub2t7zUGtrCFYu549aH0rgl6sVCGz315HL+6zz/IrP1+6mzJ5lHzzTm/6Q2SZLwsLdl+R0xEh6j7/ILqH8HSy0tt1FZ+vZJ/K/j3LD41Ytk/s8Gp0pzI5Betaz5dFUxP96UGUv8gqjXJznYq6qFxFyz6/EbX/cWWiVgWJWkrmH823cLJKi6/CbNKVVweJ+a5kS7SFYl+RsxAkPulWrH+6+Jr5ghIbLhfk1+i/XFBRL90rZ2dVQTJmXaPcXLow27I8georRV+PrKBYWnw8zat6cp99Edu/XZU3yZZ/v3q6yiOLTYkUoiMU+5ychSBRWedw9gTJ3avsk/KrN9fWSLdknhcsy1ys1nHkCdIfyiEquW6johlfZCod2+yvCMq7eZLnMSPcw99nqq+aTbrqyas7s0nlc1ur9hU5C0G6no2CxO75nTs41NTICrpW4RZZEaBG0Gzph/BzlVum/6P+qQgSOW0XNMPv+r1JYja5Q6vepPqF2uzuK3J2FqS7tR4D1OaaGhlB5YIzd7gtCfJDmFwL66TSMvm/+nNlDEqjuupE818frsqC7GFSI2hRtN7k7HKIaXVPehIw+z2veX2NyoJMzAZBfgg/Vx7abBNZrvXniiBRSTtxyPPoej9f9e9BTs7aQVqcqnxBQtEvZ+ZMoHtQtUY9epAqzQ/h5+rag9zvN8+TmqP2spj06Jqk5x9qSiz2OTnbT/M6RhrZg2/9sx0DamrkCWocg2Qhi5oQfq5yy9wxqHKaj6PZu+zpqqiBHtd1STaMaMuFbJwQ4Akq9jk52yeK6qQhE17qc6A8zmwF/Br5gmrOYs5h5Yfwc5mW+Wex+nmQnvTYMagySNu5zqKuz9p9Ts7apcaFaasdRUWtbot2pZEzDyrXqNLUmnmQ8XOtR5ZyiLxP5TV1BfnzoOpM+um9qK1a47lnsfmHpBRGz5bf1h/Udl+Rs26xelcc84/C2at/9NnYWcneqkmLVyNfkEr68j6uCjKL1WoIk+uvUzHlj8stUzPpt7qi8tvKJkQ8aLndzjQExep41dO/wFGnIcjMdLr8sNA3asiIu+PpzWnHn8d6Rw0bcnpQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCBAGEH2jsDp+Q7cIgoKEC7aIttpUeBwW+xlFDR+URQ0foi+4Shou0WOXBQFjR+ibzgK2m6RIxdFQeOH6BuOgrZb5MhF7WA1f4yCeoWjoO0WOXJRFBQ0RBxFC/Woa9NbeY5cUKKeG1/Ih2Iv61Mct6D1jXyYXD32mDQ8PXvcgp6vxJGVqiev04aXNh23IPYghB2DlKqh4SYsiGexrYSjoO0WOXJRA0MkPIv1i8LVfMBwYwka53L0lAQFTeYlf/5BvzmlaY6sMO+UakxzBIKahl+1z7yFLY32cKI4qqC4OEQbmp6V5s/7uNTYUg9qQS1WNfu4WB1ZUAeOuwfhAViOQXkXOr4xSBB3eP13/kLC5pfNTVhQ46+ow8JtmGassvsX7wjCr8cPU/qBClrfhHgH4YQFZY+nAbrQVAWZwRecxZqj7MNqfvfzoEDhKGi7RfaNO/wsZg+TDcaiCQvKZ8epfNn98BnRhAWZ07xYZTUttAKVfqCCzERRrNNbfzPbvPQDFWSW6rIHUVBdcjsGbTKnnrIgfR6Tf05ieAeatqAQUFCAcBS03SL7xh24WL20M+kNRiATrus1zs2ve/plh0o2MHm3cOO3coOsOxFU6QBdg4btVds4zZ+s4s1+me4paI+T+cnT2TKRf2BsI0MTFiSXGnKVusE6I5u0ILlYlYJaV6qJ+bWo/Q6zSQoyPShu+a0jmS2FSLlSO0JB+RiUtPyeqBf865uWA3HKgvRite0PUJmfjOLmX0QmLQhi7+6IFxRUi9Hi/L3O2nDTE9T1wqEZodY3RyZIEeL2BQrqFI6CjvU0P7gHDV3N73GymuRhbqHqUwcKCpPugAR1uBO2Tx0mJwg/itCvDocjqNtEscON5P3qcDiCutHhUYR+QacmiD0IgR9F6Bd0coLwowj9gk5PUOCgFBQmHQXtY7KBycMGpaAw6aYnaEpQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgQFBB+ibrFF9ZhHfLlgjyTghD2n6boUd4QeqCR/tFSHy3bB6u221dXYmj6PLx5arfNfbggvLS264LdbhbVpNfPAE9qKtHeYNz3Pqy5zqCC8pb03ZlscPdsjalbAo6xBpvCPRLffxuCSpXZXc9KGu7W9Yiv3I4BnV6DFkPkOuvoHJVAguS3Xxha9MEvlvWSSvGDThIp11ep2G/jF4P7IQ+zYs2i+8cXHnFd8s6PJ5u9DYRt1R9+upk03IA86D1TSBBgzgAQbuFggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUB/gcnckFW7nHQlwAAAABJRU5ErkJggg==" /><!-- --></p>
+<pre><code>## Cluster method   : single 
+## Distance         : canberra 
+## Number of objects: 5</code></pre>
+<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1028-1"><a href="#cb1028-1" tabindex="-1"></a><span class="fu">agglomerative_clustering</span>(data, <span class="at">distance_method =</span> <span class="st">&quot;chebyshev&quot;</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## Cluster method   : single 
+## Distance         : maximum 
+## Number of objects: 5</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
