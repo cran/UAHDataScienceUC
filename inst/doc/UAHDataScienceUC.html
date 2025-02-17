@@ -12,7 +12,7 @@
 
 <meta name="author" content="Andriy Protsak" />
 
-<meta name="date" content="2025-02-14" />
+<meta name="date" content="2025-02-17" />
 
 <title>UAHDataScienceUC: A Comprehensive Guide to Clustering Algorithms</title>
 
@@ -341,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">UAHDataScienceUC: A Comprehensive Guide to
 Clustering Algorithms</h1>
 <h4 class="author">Andriy Protsak</h4>
-<h4 class="date">2025-02-14</h4>
+<h4 class="date">2025-02-17</h4>
 
 
 
@@ -998,13 +998,13 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## The GMM is initialized by calling kmeans. The initial components are:</code></pre>
 <pre><code>## *** Component #1 ***</code></pre>
 <pre><code>## mu:
-## [1] 0.7075276 1.2441437
+## [1] 0.7364879 0.1163773
 ## sigma:
-##            [,1]       [,2]
-## [1,] 0.03209268 0.01368235
-## [2,] 0.01368235 0.01306666
+##             [,1]        [,2]
+## [1,]  0.03129520 -0.01414258
+## [2,] -0.01414258  0.02946434
 ## lambda:
-## [1] 0.5</code></pre>
+## [1] 0.4</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## *** Component #2 ***</code></pre>
 <pre><code>## mu:
@@ -1018,13 +1018,13 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## </code></pre>
 <pre><code>## *** Component #3 ***</code></pre>
 <pre><code>## mu:
-## [1] 0.7364879 0.1163773
+## [1] 0.7075276 1.2441437
 ## sigma:
-##             [,1]        [,2]
-## [1,]  0.03129520 -0.01414258
-## [2,] -0.01414258  0.02946434
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
 ## lambda:
-## [1] 0.4</code></pre>
+## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## These initial components are then optimized using the EM algorithm.</code></pre>
 <pre><code>## </code></pre>
@@ -1052,16 +1052,16 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## e following:</code></pre>
 <pre><code>## Expectation:
 ##    [,1] [,2] [,3]
-## 1     0   NA    1
-## 2     1   NA    0
-## 3     1   NA    0
-## 4     0   NA    1
-## 5     0   NA    1
-## 6     0   NA    1
-## 7     1   NA    0
-## 8     0   NA    1
-## 9     1   NA    0
-## 10    1   NA    0</code></pre>
+## 1     1   NA    0
+## 2     0   NA    1
+## 3     0   NA    1
+## 4     1   NA    0
+## 5     1   NA    0
+## 6     1   NA    0
+## 7     0   NA    1
+## 8     1   NA    0
+## 9     0   NA    1
+## 10    0   NA    1</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## </code></pre>
@@ -1070,11 +1070,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## The new components are:</code></pre>
 <pre><code>## *** Component #1 ***</code></pre>
 <pre><code>## mu:
-## [1] 0.7075276 1.2441437
+## [1]  0.2735670 -0.1654717
 ## sigma:
-##            [,1]       [,2]
-## [1,] 0.03209268 0.01368235
-## [2,] 0.01368235 0.01306666
+##           [,1]      [,2]
+## [1,] 1.0949504 0.6417621
+## [2,] 0.6417621 0.4192926
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1090,11 +1090,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## </code></pre>
 <pre><code>## *** Component #3 ***</code></pre>
 <pre><code>## mu:
-## [1]  0.2735670 -0.1654717
+## [1] 0.7075276 1.2441437
 ## sigma:
-##           [,1]      [,2]
-## [1,] 1.0949504 0.6417621
-## [2,] 0.6417621 0.4192926
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1115,16 +1115,16 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## e following:</code></pre>
 <pre><code>## Expectation:
 ##    [,1] [,2] [,3]
-## 1     0    0    1
-## 2     1    0    0
-## 3     1    0    0
-## 4     0    0    1
-## 5     0    0    1
-## 6     0    0    1
-## 7     1    0    0
-## 8     0    0    1
-## 9     1    0    0
-## 10    1    0    0</code></pre>
+## 1     1    0    0
+## 2     0    0    1
+## 3     0    0    1
+## 4     1    0    0
+## 5     1    0    0
+## 6     1    0    0
+## 7     0    0    1
+## 8     1    0    0
+## 9     0    0    1
+## 10    0    0    1</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## </code></pre>
@@ -1133,11 +1133,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## The new components are:</code></pre>
 <pre><code>## *** Component #1 ***</code></pre>
 <pre><code>## mu:
-## [1] 0.7075276 1.2441437
+## [1]  0.2735670 -0.1654716
 ## sigma:
-##            [,1]       [,2]
-## [1,] 0.03209268 0.01368235
-## [2,] 0.01368235 0.01306666
+##           [,1]      [,2]
+## [1,] 1.0949503 0.6417621
+## [2,] 0.6417621 0.4192927
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1153,11 +1153,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## </code></pre>
 <pre><code>## *** Component #3 ***</code></pre>
 <pre><code>## mu:
-## [1]  0.2735670 -0.1654716
+## [1] 0.7075276 1.2441437
 ## sigma:
-##           [,1]      [,2]
-## [1,] 1.0949503 0.6417621
-## [2,] 0.6417621 0.4192927
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1178,16 +1178,16 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## e following:</code></pre>
 <pre><code>## Expectation:
 ##    [,1] [,2] [,3]
-## 1     0    0    1
-## 2     1    0    0
-## 3     1    0    0
-## 4     0    0    1
-## 5     0    0    1
-## 6     0    0    1
-## 7     1    0    0
-## 8     0    0    1
-## 9     1    0    0
-## 10    1    0    0</code></pre>
+## 1     1    0    0
+## 2     0    0    1
+## 3     0    0    1
+## 4     1    0    0
+## 5     1    0    0
+## 6     1    0    0
+## 7     0    0    1
+## 8     1    0    0
+## 9     0    0    1
+## 10    0    0    1</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## </code></pre>
@@ -1196,11 +1196,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## The new components are:</code></pre>
 <pre><code>## *** Component #1 ***</code></pre>
 <pre><code>## mu:
-## [1] 0.7075276 1.2441437
+## [1]  0.2735670 -0.1654716
 ## sigma:
-##            [,1]       [,2]
-## [1,] 0.03209268 0.01368235
-## [2,] 0.01368235 0.01306666
+##           [,1]      [,2]
+## [1,] 1.0949503 0.6417621
+## [2,] 0.6417621 0.4192927
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1216,11 +1216,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## </code></pre>
 <pre><code>## *** Component #3 ***</code></pre>
 <pre><code>## mu:
-## [1]  0.2735670 -0.1654716
+## [1] 0.7075276 1.2441437
 ## sigma:
-##           [,1]      [,2]
-## [1,] 1.0949503 0.6417621
-## [2,] 0.6417621 0.4192927
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1241,16 +1241,16 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## e following:</code></pre>
 <pre><code>## Expectation:
 ##    [,1] [,2] [,3]
-## 1     0    0    1
-## 2     1    0    0
-## 3     1    0    0
-## 4     0    0    1
-## 5     0    0    1
-## 6     0    0    1
-## 7     1    0    0
-## 8     0    0    1
-## 9     1    0    0
-## 10    1    0    0</code></pre>
+## 1     1    0    0
+## 2     0    0    1
+## 3     0    0    1
+## 4     1    0    0
+## 5     1    0    0
+## 6     1    0    0
+## 7     0    0    1
+## 8     1    0    0
+## 9     0    0    1
+## 10    0    0    1</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## </code></pre>
@@ -1259,11 +1259,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## The new components are:</code></pre>
 <pre><code>## *** Component #1 ***</code></pre>
 <pre><code>## mu:
-## [1] 0.7075276 1.2441437
+## [1]  0.2735670 -0.1654716
 ## sigma:
-##            [,1]       [,2]
-## [1,] 0.03209268 0.01368235
-## [2,] 0.01368235 0.01306666
+##           [,1]      [,2]
+## [1,] 1.0949503 0.6417621
+## [2,] 0.6417621 0.4192927
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1279,11 +1279,11 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## </code></pre>
 <pre><code>## *** Component #3 ***</code></pre>
 <pre><code>## mu:
-## [1]  0.2735670 -0.1654716
+## [1] 0.7075276 1.2441437
 ## sigma:
-##           [,1]      [,2]
-## [1,] 1.0949503 0.6417621
-## [2,] 0.6417621 0.4192927
+##            [,1]       [,2]
+## [1,] 0.03209268 0.01368235
+## [2,] 0.01368235 0.01306666
 ## lambda:
 ## [1] 0.5</code></pre>
 <pre><code>## </code></pre>
@@ -1305,13 +1305,13 @@ from a mixture of several Gaussian distributions.</p>
 <pre><code>## ely to belong to. The final clusters are:</code></pre>
 <pre><code>## Cluster assignments:
 ##  1  2  3  4  5  6  7  8  9 10 
-##  3  1  1  3  3  3  1  3  1  1</code></pre>
+##  1  3  3  1  1  1  3  1  3  3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## ________________________________________________________________________________</code></pre>
 <pre><code>## </code></pre>
 <div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="#cb571-1" tabindex="-1"></a><span class="co"># Plot results with contours</span></span>
 <span id="cb571-2"><a href="#cb571-2" tabindex="-1"></a><span class="fu">plot</span>(data, <span class="at">col =</span> result<span class="sc">$</span>cluster, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAVFBMVEUAAAAAADoAAGYAOpAAZrY6AAA6ADo6AGY6Ojo6kNth0E9mAABmADpmZmZmtv+QOgCQ2/+2ZgC2/7a2///bkDrb/9vb////tmb/25D//7b//9v///+mKWolAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAFI0lEQVR4nO3d2XqTQABAYdw10dZolKZ9//c0kUIWGQ7DMCzm/FetcWh6PhgCIbR4Uadi7iewdAYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCIwcqVmOuQOMuLh8DnbWuLgZqtG9QBmrcBHr9xkCN60D1dwY6u12BDNTFQCTvHPT8WL3KevtzlMVNY8Ld/L74Un1R1l8kLW4arxvVTaYsgZ4fmyz7d7+TFzeRKtDtq6EsgQ7bh/rLMrCR3XegdaxB/0w59RaWP9BxDnpdhRY8B4UO1aeYg04bWbUXC6w/Sw50+996Ly/lyWRf3JBnYCB6Cr1OhuUOtF/PXqzdxGtQ/JnMud3xJtaPgYCBgIFApmOx82TsXqzN82PwRNCQxc0p2wmz92Mubka55qCyeOh8/O4DTby4fAwEDAQMBAwEDAQMBAwEDAQMBDzlClyDgIGAgYCBgIHA3QfabDadj997oM0GChnIQJ3aA138W7Z3NdZyGXCgT/OvuS7BW+FlwGfZA63jIs6w7IHWeRnwhdxz0NrXoEvxgQ7b0LxytobLgHsasgbtj7snaLSCy4B7GriJ9Wg00s+d2+A5aN/1KmfEnzuXep4eFqg81nk4zsXBLaixosuAr14yNnv6AYFO80tVJrQP71jKcs9JXx90JAQ6bN98T386/3GgcSw9UOIchNZzsHrWft7Dg1XgoQbwYBW4BoFcc9BdH6z2cPcHq9P93LkZCBgIGAgYCBgIGAgYCBgIeBkwcA0CBgIGAgYCBgIGAr7tA3zbB3jSHvi2D3ANAr7tA3zbB/g6CBgI5A60omsU27kGAQMBT7kC1yBgIJDpWMxblXbzVqXEW5USb1U61c+dm4FAzkAX583aF0c3FlmCOQPhfTOWwEDAQMA5CLgXAwYCswVajZkCRSwZHk97OHX4kP8Zy0CJSzZQ2uMGMlDa4wYyUNrjBrr7QP8JAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQOBLIGePtVX6lWXNcJladfKomjuKhs9PGlwqxyBDtvmUsanj7F30C2Pv2BZ/5Kxw5MGt8sQqLy4Bjb6zsvVG/+794OGJw0OGD9QWXw5P7V97Br+9OF0EWT9WZnI4UmDA7LMQedAu89F3F3yq+2iXkDk8KTBAXkDHbanzybuIp5lNYO8ziOxw5MGB2Reg9q+7R56+TvGDk8aHDBFoGpq6Od6K4kcnjQ4YMxAzV/luA3Ub3/7d/j1PBsz/OV2ko4cHJB3DaqeccxqfrWnjh2eNDgg917s9GSjJsqr13qxw5MGt8sXqPrgy64o4OMdt/bV0cKw4UmDW3mwCgwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDASWHuh0udhhm3yt6nBLD3S6aCz0Z2AmsfRAL+XbH1/H+EjBUIsP9LJL/jxKkuUHojs0Z7b4QM+P30b5UMpQiw+0f/er486f+S090OmPvo3zuaaBlh5od9zF4530c1p6oNkZCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgI/AEbPqt9uK+ShAAAAABJRU5ErkJggg==" /><!-- --></p>
+<p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAVFBMVEUAAAAAADoAAGYAOpAAZrY6AAA6ADo6AGY6Ojo6kNth0E9mAABmADpmZmZmtv+QOgCQ2/+2ZgC2/7a2///bkDrb/9vb////tmb/25D//7b//9v///+mKWolAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAFHklEQVR4nO3da3uaSABAYXrb3Wo3Wbe2xOT//8/VElApw3EYhsty3k9p7BBzHhhAkRRv6lXM/QSWzkDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEBg5EDFaswVaNzF5WOgq91u9/s3DdTY7boKGajRCvT+DwM17gPV/zLQVXsFMlAfA5G8c9Drc3WU9fH7KIubxoS7+WPxtfqirL9IWtw03jeqVqYsgV6fmyzHTz+TFzeRKlD7aChLoNP+qf6yDGxk2w60jjXotymn3sLyBzrPQe+r0ILnoO4zi2nmoMtGVu3FAuvPkgO1bPc4yEDkoT7ZAx3XsxfrNvEaFP9K5tw2vIk9xkDAQMBAINO52HUydi/W5fU5+ELQkMXNKdsLZp/HXNyMcs1BZfHU+/jmA028uHwMBAwEDAQMBAwEDAQMBAwEDAR8yRW4BgEDAQMBAwEDgc0Hoh3q1gPhIYeBDNSrO9DN9zZ/GXCgT/NdLwPukD3QOi7iDMseaJ2XAd/IPQetfQ26FR/otA/NK1druAz4QUPWoON5DYRGK7gM+EEDN7EHGo30c+c2eA469h3ljPhz51LP08MClefhT+e5OLgFNVZ0GfDdIWOzpx8Q6DK/VGVC+/DeJ7HU16Tvn1VCoNP+wz8jPJ30RYxstEAjPZ1xFzeC1nqdNgeh9ZysXnVv956sAk81gCerwDUI5JqDNn2y+oDNn6xO93PnZiBgIGAgYCBgIGAgYCBgIDBxoAW/5BrgGgQMBAwEDAQMBAwEfNsH+LYP8EV74Ns+wDUI+LYP8G0f4HEQMBDIHWhF1yh2cw0CBgK+5Apcg4CBQKZzMW9V2s9blRJvVUq8VelUP3duBgI5A928bta9uDUcL84ZaBVH1AYCBgLOQcC9GDAQmC3QaswUKGLJ8Hjaw6nDh/zPWAZKXLKB0h43kIHSHjeQgdIeN9DmA/1PGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIZAn08md9pV51WSNclnavLIrmrrLRw5MGd8oR6LRvLmV8+SP2Drrl+Rcs618ydnjS4G4ZApU318BG33m5euP/8HnQ8KTBAeMHKouv16d2jF3DX75cLoKsPysTOTxpcECWOega6PBXEXeX/Gq7qBcQOTxpcEDeQKf95bOJh4hnWc0g7/NI7PCkwQGZ16Cuf/YPvf0dY4cnDQ6YIlA1NTzmfiuJHJ40OGDMQM1f5WgHemx/+2v4/TwbM/ytPUlHDg7IuwZVzzhmNb/bU8cOTxockHsvdnmyURPl3bFe7PCkwd3yBao++HIoCvh4R9uxOlsYNjxpcCdPVoGBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIGAgYCBgIHA0gNdLhc77ZOvVR1u6YEuF42F/gzMJJYe6K38+O+3MT5SMNTiA70dkj+PkmT5gegOzZktPtDr89+jfChlqMUHOn760XPnz/yWHujyR9/G+VzTQEsPdDjv4vFO+jktPdDsDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBAwEDAQMBP4DsTSrfdfEsjcAAAAASUVORK5CYII=" /><!-- --></p>
 </div>
 <div id="genetic-k-means" class="section level2">
 <h2>Genetic K-Means</h2>
@@ -1346,16 +1346,16 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Here&#39;s a sample of the initial population (first 5 individuals, first 10 data po</code></pre>
 <pre><code>## ints):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    3    1    2    3    1    3    2    2    3     1
-## [2,]    2    2    3    1    3    1    3    2    1     1
-## [3,]    3    2    1    2    3    2    3    3    1     1
-## [4,]    3    3    2    1    1    3    1    1    2     2
-## [5,]    1    3    3    1    3    1    2    2    2     3</code></pre>
+## [1,]    3    3    2    1    3    2    3    1    2     1
+## [2,]    1    1    3    3    2    3    2    3    1     2
+## [3,]    3    1    2    1    2    1    3    2    1     3
+## [4,]    1    1    3    1    2    2    3    2    2     3
+## [5,]    1    3    3    2    1    3    2    3    1     2</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## INITIAL FITNESS:</code></pre>
-<pre><code>## Best fitness: 3.59</code></pre>
-<pre><code>## Average fitness: 1.62</code></pre>
+<pre><code>## Best fitness: 4.74</code></pre>
+<pre><code>## Average fitness: 2.39</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## ________________________________________________________________________________</code></pre>
@@ -1364,18 +1364,18 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## SELECTION:</code></pre>
 <pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
 <pre><code>## Selected parent (first 10 data points):</code></pre>
-<pre><code>##  [1] 1 3 3 1 3 1 2 2 2 3</code></pre>
+<pre><code>##  [1] 1 1 3 2 1 2 3 2 3 3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## MUTATION:</code></pre>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    1    3    3    1    3    3    2    2    1     3
-## [2,]    1    3    2    1    2    2    3    1    2     3
-## [3,]    1    2    3    1    3    1    2    2    2     3
-## [4,]    1    3    3    2    3    1    1    3    2     3
-## [5,]    1    3    3    1    3    3    2    2    3     3</code></pre>
+## [1,]    1    3    3    2    1    2    3    3    3     3
+## [2,]    1    2    2    2    1    1    2    2    3     3
+## [3,]    1    1    3    2    2    1    2    2    3     3
+## [4,]    1    2    2    2    1    2    3    2    3     2
+## [5,]    1    2    3    2    1    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1384,17 +1384,17 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    1    3    3    2    2    3    3    2    3     3
+## [1,]    1    3    3    2    2    2    3    2    3     3
 ## [2,]    1    3    3    1    2    2    3    2    3     3
-## [3,]    1    2    2    1    3    3    2    3    2     3
+## [3,]    1    3    3    2    2    2    3    2    3     3
 ## [4,]    1    3    3    2    2    2    3    2    3     3
 ## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 3.79</code></pre>
-<pre><code>## Average fitness: 3.02</code></pre>
+<pre><code>## Best fitness in this generation: 2.41</code></pre>
+<pre><code>## Average fitness: 2.17</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1411,11 +1411,11 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    1    3    3    2    2    2    3    2    3     3
-## [2,]    1    2    3    2    3    2    3    2    3     1
-## [3,]    1    3    3    2    2    2    3    2    2     3
-## [4,]    2    2    2    3    2    2    3    2    1     1
-## [5,]    1    3    2    2    2    2    3    2    3     3</code></pre>
+## [1,]    1    3    3    3    2    2    2    2    3     3
+## [2,]    1    3    3    2    2    2    1    2    3     3
+## [3,]    1    3    2    3    2    2    3    2    3     3
+## [4,]    1    3    3    2    1    2    3    2    2     2
+## [5,]    1    3    3    2    2    2    3    3    3     2</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1427,14 +1427,14 @@ concepts for potentially better cluster optimization.</p>
 ## [1,]    1    3    3    2    2    2    3    2    3     3
 ## [2,]    1    3    3    2    2    2    3    2    3     3
 ## [3,]    1    3    3    2    2    2    3    2    3     3
-## [4,]    2    1    1    2    3    2    1    2    1     1
+## [4,]    1    3    3    2    2    2    3    2    3     3
 ## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 3.86</code></pre>
-<pre><code>## Average fitness: 3.48</code></pre>
+<pre><code>## Best fitness in this generation: 0.00</code></pre>
+<pre><code>## Average fitness: 0.00</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1451,11 +1451,11 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    1    3    3    3    2    3    2    2    3     3
-## [2,]    2    3    3    1    1    2    3    1    2     3
-## [3,]    1    3    1    3    2    2    3    2    3     3
-## [4,]    3    3    3    2    2    2    3    3    1     3
-## [5,]    1    3    3    2    3    2    1    2    3     1</code></pre>
+## [1,]    1    3    3    2    2    3    3    2    2     3
+## [2,]    1    2    3    2    2    3    1    3    3     1
+## [3,]    1    2    3    2    2    2    3    2    3     3
+## [4,]    1    2    3    3    2    2    3    2    3     1
+## [5,]    1    3    3    2    2    2    3    3    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1465,16 +1465,16 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    1    3    3    2    2    2    3    2    3     3
-## [2,]    2    3    3    1    1    1    3    1    3     3
+## [2,]    1    3    3    2    2    2    3    2    3     3
 ## [3,]    1    3    3    2    2    2    3    2    3     3
-## [4,]    3    1    1    3    2    2    3    2    1     1
+## [4,]    1    3    3    2    2    2    3    2    3     3
 ## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 6.68</code></pre>
-<pre><code>## Average fitness: 5.46</code></pre>
+<pre><code>## Best fitness in this generation: 3.43</code></pre>
+<pre><code>## Average fitness: 3.09</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1484,18 +1484,18 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## SELECTION:</code></pre>
 <pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
 <pre><code>## Selected parent (first 10 data points):</code></pre>
-<pre><code>##  [1] 2 3 3 1 1 1 3 1 3 3</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## MUTATION:</code></pre>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    2    3    1    2    1    3    3    1    3     3
-## [2,]    3    1    3    1    1    1    3    1    1     1
-## [3,]    2    2    3    3    1    3    3    1    3     1
-## [4,]    1    3    3    2    1    3    2    2    3     3
-## [5,]    2    3    2    1    2    3    1    1    3     3</code></pre>
+## [1,]    1    3    1    2    2    2    3    3    3     3
+## [2,]    1    3    2    2    1    1    3    2    3     3
+## [3,]    3    2    3    2    1    2    2    2    3     3
+## [4,]    1    2    2    2    2    2    3    2    3     3
+## [5,]    3    3    3    2    2    2    3    2    3     1</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1504,17 +1504,17 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    2    3    3    1    1    1    3    1    3     3
-## [2,]    3    1    2    1    1    2    1    1    1     2
-## [3,]    2    3    3    1    1    1    3    1    3     3
+## [1,]    1    3    3    2    2    2    3    2    3     3
+## [2,]    1    3    3    2    2    2    3    2    3     3
+## [3,]    3    2    2    1    1    1    2    1    2     3
 ## [4,]    1    3    3    2    2    2    3    2    3     3
-## [5,]    2    3    3    1    1    1    3    1    3     3</code></pre>
+## [5,]    3    1    3    2    2    2    1    3    1     1</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 7.35</code></pre>
-<pre><code>## Average fitness: 6.35</code></pre>
+<pre><code>## Best fitness in this generation: 7.46</code></pre>
+<pre><code>## Average fitness: 5.72</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1531,11 +1531,11 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    1    3    3    2    2    2    2    2    3     3
-## [2,]    2    3    3    3    2    2    3    2    3     1
-## [3,]    1    3    2    2    2    3    3    1    3     1
-## [4,]    1    3    2    2    2    2    1    2    2     3
-## [5,]    3    2    1    1    2    2    1    3    3     3</code></pre>
+## [1,]    1    3    2    2    2    2    3    2    3     3
+## [2,]    1    2    3    1    3    2    3    2    3     2
+## [3,]    1    3    3    2    2    3    1    3    3     3
+## [4,]    3    3    1    1    2    1    2    2    3     2
+## [5,]    1    3    3    1    2    3    1    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1545,16 +1545,16 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ## [1,]    1    3    3    2    2    2    3    2    3     3
-## [2,]    2    3    3    2    2    2    3    2    3     1
+## [2,]    1    3    3    2    2    2    3    2    3     3
 ## [3,]    1    3    3    2    2    2    3    2    3     3
-## [4,]    1    3    3    2    2    2    3    2    3     3
-## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+## [4,]    3    2    2    1    1    1    2    1    2     2
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 4.22</code></pre>
-<pre><code>## Average fitness: 3.79</code></pre>
+<pre><code>## Best fitness in this generation: 3.45</code></pre>
+<pre><code>## Average fitness: 3.10</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1564,18 +1564,18 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## SELECTION:</code></pre>
 <pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
 <pre><code>## Selected parent (first 10 data points):</code></pre>
-<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## MUTATION:</code></pre>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    3    1    2    2    2    1    1    2    3     1
-## [2,]    3    2    1    1    2    2    2    2    1     3
-## [3,]    3    3    1    2    2    2    2    2    1     1
-## [4,]    3    1    1    2    1    1    1    3    1     1
-## [5,]    3    1    1    2    2    1    1    2    1     1</code></pre>
+## [1,]    2    3    2    2    2    2    1    2    3     3
+## [2,]    1    3    3    2    2    2    1    2    3     1
+## [3,]    1    2    3    1    2    2    1    2    3     2
+## [4,]    1    3    2    2    2    1    3    2    1     3
+## [5,]    1    3    3    2    2    3    3    2    2     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1584,17 +1584,17 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    3    1    1    2    2    2    1    2    1     1
-## [2,]    3    1    1    2    2    2    1    2    1     1
-## [3,]    3    1    1    2    2    2    1    2    1     1
-## [4,]    3    1    1    2    2    2    1    2    1     1
-## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+## [1,]    2    3    3    2    2    2    1    2    3     3
+## [2,]    1    3    3    2    2    2    3    2    3     3
+## [3,]    1    3    3    2    2    2    3    2    3     3
+## [4,]    1    3    3    2    2    2    3    2    3     3
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 4.89</code></pre>
-<pre><code>## Average fitness: 4.07</code></pre>
+<pre><code>## Best fitness in this generation: 4.25</code></pre>
+<pre><code>## Average fitness: 3.83</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1604,18 +1604,18 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## SELECTION:</code></pre>
 <pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
 <pre><code>## Selected parent (first 10 data points):</code></pre>
-<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## MUTATION:</code></pre>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    2    1    2    2    1    3    1    2    1     1
-## [2,]    1    1    3    2    3    3    1    2    1     1
-## [3,]    3    1    1    2    2    2    1    2    1     3
-## [4,]    2    1    2    2    2    2    1    3    2     1
-## [5,]    3    1    1    1    1    2    1    2    1     2</code></pre>
+## [1,]    2    3    3    2    3    1    1    2    1     3
+## [2,]    1    3    3    1    2    2    3    2    3     1
+## [3,]    1    1    3    2    2    2    2    2    1     3
+## [4,]    1    3    3    2    3    3    1    2    3     3
+## [5,]    3    3    2    2    2    1    1    2    2     2</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1624,17 +1624,17 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    2    1    1    3    3    3    1    3    1     1
-## [2,]    2    3    3    2    2    3    3    2    1     1
-## [3,]    3    1    1    2    2    2    1    2    1     1
-## [4,]    2    1    1    3    3    2    1    3    1     1
+## [1,]    2    1    1    2    3    3    1    3    1     1
+## [2,]    1    3    3    2    2    2    3    2    3     3
+## [3,]    1    3    3    2    2    2    3    2    3     3
+## [4,]    1    3    3    2    2    2    3    2    3     3
 ## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 5.19</code></pre>
-<pre><code>## Average fitness: 4.34</code></pre>
+<pre><code>## Best fitness in this generation: 3.43</code></pre>
+<pre><code>## Average fitness: 2.77</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1644,18 +1644,18 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## SELECTION:</code></pre>
 <pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
 <pre><code>## Selected parent (first 10 data points):</code></pre>
-<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## MUTATION:</code></pre>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    2    1    2    3    1    2    3    3    2     1
-## [2,]    3    1    3    2    1    3    1    2    1     1
-## [3,]    3    1    1    2    2    1    1    2    1     1
-## [4,]    3    1    1    2    2    2    1    2    1     3
-## [5,]    2    1    1    2    1    1    2    3    1     1</code></pre>
+## [1,]    1    3    3    2    2    2    3    2    3     2
+## [2,]    1    2    2    2    2    2    3    2    3     3
+## [3,]    1    2    3    2    3    2    3    1    2     3
+## [4,]    1    3    3    1    2    2    2    2    3     1
+## [5,]    1    3    2    2    2    3    3    3    2     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1664,11 +1664,11 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    2    1    1    3    3    3    1    3    1     1
-## [2,]    3    1    1    2    2    2    1    2    1     1
-## [3,]    3    1    1    2    2    2    1    2    1     1
-## [4,]    3    1    1    2    2    2    1    2    1     1
-## [5,]    2    1    1    3    3    3    1    3    1     1</code></pre>
+## [1,]    1    3    3    2    2    2    3    2    3     3
+## [2,]    1    3    3    2    2    2    3    2    3     3
+## [3,]    1    3    3    2    2    2    3    2    3     3
+## [4,]    1    3    3    2    2    2    3    2    3     3
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
@@ -1684,18 +1684,18 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## SELECTION:</code></pre>
 <pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
 <pre><code>## Selected parent (first 10 data points):</code></pre>
-<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## MUTATION:</code></pre>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    3    1    1    2    2    2    1    1    1     1
-## [2,]    1    1    2    1    3    2    1    3    3     1
-## [3,]    3    1    2    2    2    1    3    2    1     1
-## [4,]    3    1    1    2    3    2    1    2    1     1
-## [5,]    3    1    3    2    2    2    2    2    1     2</code></pre>
+## [1,]    2    3    3    2    3    1    3    2    1     1
+## [2,]    1    3    2    2    2    3    3    2    3     3
+## [3,]    1    3    3    2    3    2    3    2    3     3
+## [4,]    1    3    3    2    2    2    3    1    3     3
+## [5,]    1    3    1    2    2    3    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1704,17 +1704,17 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    3    1    1    2    2    2    1    2    1     1
-## [2,]    1    2    2    3    3    1    2    3    2     2
-## [3,]    3    1    1    2    2    2    1    2    1     1
-## [4,]    3    1    1    2    2    2    1    2    1     1
-## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+## [1,]    2    3    3    2    3    1    3    2    3     1
+## [2,]    1    3    3    2    2    2    3    2    3     3
+## [3,]    1    3    3    2    2    2    3    2    3     3
+## [4,]    1    3    3    2    2    2    3    2    3     3
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 2.45</code></pre>
-<pre><code>## Average fitness: 2.21</code></pre>
+<pre><code>## Best fitness in this generation: 5.35</code></pre>
+<pre><code>## Average fitness: 4.38</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
@@ -1724,18 +1724,18 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## SELECTION:</code></pre>
 <pre><code>## Parents for the next generation are selected based on their fitness.</code></pre>
 <pre><code>## Selected parent (first 10 data points):</code></pre>
-<pre><code>##  [1] 3 1 1 2 2 2 1 2 1 1</code></pre>
+<pre><code>##  [1] 1 3 3 2 2 2 3 2 3 3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## MUTATION:</code></pre>
 <pre><code>## Random mutations are applied to the chromosomes with probability0.50</code></pre>
 <pre><code>## Sample of mutated population (first 5 individuals, first 10 data points):</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    3    2    3    3    1    2    1    2    1     1
-## [2,]    3    1    1    2    2    3    1    2    2     1
-## [3,]    2    2    3    2    2    1    1    2    1     1
-## [4,]    3    1    2    1    2    2    3    2    2     3
-## [5,]    3    1    1    1    1    2    2    2    1     1</code></pre>
+## [1,]    1    2    3    2    1    2    3    2    3     1
+## [2,]    1    3    2    2    2    2    3    2    3     3
+## [3,]    3    1    2    3    1    2    3    2    1     3
+## [4,]    1    3    3    2    3    2    3    2    2     2
+## [5,]    1    2    3    2    2    2    3    2    2     2</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## CROSSOVER:</code></pre>
@@ -1744,17 +1744,17 @@ concepts for potentially better cluster optimization.</p>
 <pre><code>## Sample of population after crossover (first 5 individuals, first 10 data points)</code></pre>
 <pre><code>## :</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-## [1,]    3    1    1    2    2    2    1    2    1     1
-## [2,]    3    1    1    2    2    2    1    2    1     1
-## [3,]    2    3    3    2    2    2    3    2    3     1
-## [4,]    3    2    2    1    1    1    2    1    2     2
-## [5,]    3    1    1    2    2    2    1    2    1     1</code></pre>
+## [1,]    1    3    3    2    2    2    3    2    3     3
+## [2,]    1    3    3    2    2    2    3    2    3     3
+## [3,]    3    1    1    2    2    2    1    2    1     1
+## [4,]    1    3    3    2    2    2    3    2    3     3
+## [5,]    1    3    3    2    2    2    3    2    3     3</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>
 <pre><code>## FITNESS EVALUATION:</code></pre>
 <pre><code>## The fitness of each individual is calculated based on within-cluster variation.</code></pre>
-<pre><code>## Best fitness in this generation: 6.46</code></pre>
-<pre><code>## Average fitness: 4.97</code></pre>
+<pre><code>## Best fitness in this generation: 2.45</code></pre>
+<pre><code>## Average fitness: 2.21</code></pre>
 <pre><code>## Total Within-Cluster Variation of best solution: 0.36</code></pre>
 <pre><code>## </code></pre>
 <pre><code>## Press [enter] to continue</code></pre>

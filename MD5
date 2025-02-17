@@ -1,13 +1,13 @@
-e1702cdc2f8f8a334b12a890d97691f8 *DESCRIPTION
+60aceda54427fc86146f672ca89a9324 *DESCRIPTION
 e4f566c3eef713226ba05eb6a7c073de *LICENSE
 893ffab8485f2f1fc1a9f1c54eba4a6c *NAMESPACE
-176b891bc52cc2a33c8f101ff9c5d0f4 *NEWS.md
+3effe03f56e4eb35c085ce9321d27d34 *NEWS.md
 a82856b881396e542dc4679990e83dd5 *R/agglomerative_clustering.R
 2ab0a826bb48f51f11b8bc1bcedd740e *R/console.R
 c0b34600d27aa789552d326e74adfd1d *R/correlation_clustering.R
 6e956cf31e5ef3f3b3401dd5fae521a3 *R/data.R
 1a7e78d8f15f6b5dc804660cd2b079d4 *R/dbscan.R
-3454a623a140b0b5e6f30d55220f0a3e *R/divisive_clustering.R
+ddcf731b6b176858ddedeb0ca5735c9e *R/divisive_clustering.R
 a9dc0c37538c3f7823eab157c056027e *R/gaussian_mixture.R
 cc120bfda14c9ec4a36b55824129b4e3 *R/gkmeans.R
 c0fab43d6c573e20686c682947d0fa2c *R/kmeans.R
@@ -20,7 +20,7 @@ fb31d42eb098d8ab4ac177f55e105e86 *data/db4.rda
 ba1f533f5f479b3f11712310e06a5be5 *data/db6.rda
 dca4016df3e361b4e6e684cfcfa23f71 *inst/doc/UAHDataScienceUC.R
 fefbb6a6e344b717bbe3d07e45649cfa *inst/doc/UAHDataScienceUC.Rmd
-15dfbeb4ad8468c16df7f31529d25e99 *inst/doc/UAHDataScienceUC.html
+75415f33498e7a38333962e27c0c68fc *inst/doc/UAHDataScienceUC.html
 58234e3c8a9e7ce05141a2fb2bc44c8b *man/agglomerative_clustering.Rd
 45d145333baab016af16cd86aff7c429 *man/correlation_clustering.Rd
 a079f729703593261fac5100dc13dddb *man/db1.Rd
@@ -30,8 +30,8 @@ d50a33d9e5f5c391845c775da4cdd02e *man/db4.Rd
 9418d2d974849c0994c6b6eac2787d9f *man/db5.Rd
 2a4f9669fdc8878e4e97499678cd2f05 *man/db6.Rd
 2cbc1da90c694413ffbf35dadb44ca14 *man/dbscan.Rd
-37f6f47f5c0e8a6199a0f169621551ec *man/divisive_clustering.Rd
-0a4882ff3ccf22723dc438a8679194a4 *man/gaussian_mixture.Rd
+bb2e82711630ab555fad94b5035025c1 *man/divisive_clustering.Rd
+b6dcfaba256d145e7daeac9a9f8f743a *man/gaussian_mixture.Rd
 5ae8ac6a8e512bb35530a84d2a69ab1b *man/genetic_kmeans.Rd
 2213492b06abf113337d13f4cb675204 *man/gka_allele_mutation.Rd
 146531c135dee1a755687d80e5312452 *man/gka_centers.Rd

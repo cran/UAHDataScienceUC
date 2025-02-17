@@ -98,26 +98,11 @@ test <- function(db, k) {
 }
 
 ### Example 1
-test(db1, 2)
+test(db1[1:250,], 2)
 
-### Example 2
-# test(db2, 2)
-
-### Example 3
-test(db3, 3)
-
-### Example 4
-test(db4, 3)
-
-### Example 5
-test(db5, 3)
-
-### Example 6
-# test(db6, 3)
-
-### Example 7 (with explanations, no plots)
+### Example 2 (with explanations, no plots)
 cl <- gaussian_mixture(
-  db5[1:20, ],
+  db5[1:10, ],
   3,
   learn = TRUE,
   waiting = FALSE

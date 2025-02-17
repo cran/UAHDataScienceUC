@@ -32,6 +32,11 @@
 #'
 #' ### Helper function
 #' test <- function(db, k) {
+#'   # Save old par settings
+#'   old_par <- par(no.readonly = TRUE)
+#'   # Ensure par settings are restored when function exits
+#'   on.exit(par(old_par))
+#'
 #'   print(cl <- divisive_clustering(db, max_iterations = 5))
 #'   par(mfrow = c(1, 2))
 #'   plot(db, col = cutree(cl, k), asp = 1, pch = 20)

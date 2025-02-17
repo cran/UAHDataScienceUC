@@ -1,6 +1,6 @@
 Package: UAHDataScienceUC
 Title: Learn Clustering Techniques Through Examples and Code
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
        person(
             "Eduardo",
@@ -34,7 +34,8 @@ Authors@R: c(
     )
 Description: A comprehensive educational package combining clustering algorithms with 
     detailed step-by-step explanations. Provides implementations of both traditional 
-    (hierarchical, k-means) and modern (DBSCAN, GMM, genetic k-means) clustering methods 
+    (hierarchical, k-means) and modern (Density-Based Spatial Clustering of Applications with Noise (DBSCAN), 
+    Gaussian Mixture Models (GMM), genetic k-means) clustering methods 
     as described in Ezugwu et. al., (2022) <doi:10.1016/j.engappai.2022.104743>. 
     Includes educational datasets highlighting different clustering challenges, based on 
     'scikit-learn' examples (Pedregosa et al., 2011) 
@@ -50,7 +51,7 @@ Suggests: deldir (>= 1.0-9), knitr, rmarkdown
 VignetteBuilder: knitr
 LazyData: true
 NeedsCompilation: no
-Packaged: 2025-02-14 18:35:25 UTC; andriy
+Packaged: 2025-02-17 17:17:44 UTC; andriy
 Author: Eduardo Ruiz Sabajanes [aut],
   Roberto Alcantara [aut],
   Juan Jose Cuadrado Gallego [aut]
@@ -59,4 +60,4 @@ Author: Eduardo Ruiz Sabajanes [aut],
   Universidad de Alcala [cph]
 Maintainer: Andriy Protsak Protsak <andriy.protsak@edu.uah.es>
 Repository: CRAN
-Date/Publication: 2025-02-17 12:20:02 UTC
+Date/Publication: 2025-02-17 20:30:05 UTC
